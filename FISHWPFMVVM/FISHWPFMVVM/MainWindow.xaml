@@ -1,0 +1,47 @@
+﻿<Window x:Class="FISHWPFMVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FISHWPFMVVM"
+        xmlns:animal="clr-namespace:FISHWPFMVVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <animal:DoubleToWeightConverter x:Key="DoubleToWeightConverter"/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <animal:AnimalViewModel />
+    </Window.DataContext>
+    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch" Background="Black">
+
+        <ListBox DockPanel.Dock="left" Foreground="White" 
+                 Background="Black" ItemsSource="{Binding Animals}" SelectedItem="{Binding CurrentAnimal}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox DockPanel.Dock="Right" Foreground="White" 
+                 Background="Black" ItemsSource="{Binding CurrentAnimal}">
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" 
+                       FontSize="36" Foreground="White"
+                       Text="{Binding CurrentAnimal.Name}"/>
+            <TextBlock TextWrapping="Wrap" 
+                       FontSize="36" Foreground="White"
+                       Text="{Binding CurrentAnimal.Weight, Converter={StaticResource DoubleToWeightConverter}}"/>
+
+            <Image Source="{Binding ImageSource}" HorizontalAlignment="Left" 
+                   Margin="0,0,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Bottom" 
+                   Width="200"  />
+
+        </ListBox>
+
+
+    </DockPanel>
+</Window>
