@@ -62,7 +62,6 @@ namespace FISHWPFMVVM
             set
             {
                 imageSource = value;
-                OnPropertyChanged();
             }
         }
 
